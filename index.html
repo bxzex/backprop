@@ -35,13 +35,13 @@ h1{font-size:40px;font-weight:500;margin:0;letter-spacing:-.015em}
 .cols{display:grid;grid-template-columns:1.15fr 1fr;gap:30px;align-items:start}
 @media(max-width:820px){.cols{grid-template-columns:1fr}}
 figure{margin:0}
-figcaption{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
+figcaption{font-size:13.5px;color:var(--faint);
   display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:9px}
 canvas{display:block;width:100%;border:1px solid var(--rule2);background:#fff}
 .panel{margin-top:26px}
 .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px 26px;margin-top:6px}
 .ctl{display:flex;flex-direction:column;gap:5px}
-.ctl label{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);display:flex;justify-content:space-between}
+.ctl label{font-size:13.5px;color:var(--faint);display:flex;justify-content:space-between}
 .ctl label b{color:var(--ink);font-weight:600}
 input[type=range]{width:100%;accent-color:var(--a);background:transparent}
 select{font-family:var(--mono);font-size:12.5px;padding:7px 9px;border:1px solid var(--rule2);background:#fff;color:var(--ink);border-radius:2px}
@@ -56,12 +56,12 @@ button.primary:hover{background:#33302a}
 @media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}}
 .st{padding:13px 15px;border-right:1px solid var(--rule2)}
 .st:last-child{border-right:0}
-.st .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.st .k{font-size:13.5px;color:var(--faint)}
 .st .v{font-family:var(--mono);font-size:22px;font-weight:600;margin-top:5px;font-variant-numeric:tabular-nums}
 .legend{display:flex;gap:18px;font-family:var(--mono);font-size:11px;color:var(--body);margin-top:11px;flex-wrap:wrap}
 .legend i{width:10px;height:10px;display:inline-block;margin-right:6px;vertical-align:-1px}
 .prose{margin-top:30px;color:var(--body);max-width:68ch}
-.prose h2{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);font-weight:500;margin:0 0 9px}
+.prose h2{font-size:17px;color:var(--ink);font-weight:500;margin:0 0 9px}
 .prose code{font-family:var(--mono);font-size:14px;background:#f2eee2;padding:1px 5px;border-radius:2px}
 .prose a{color:var(--a)}
 .arch{font-family:var(--mono);font-size:12px;color:var(--body);margin-top:12px}
@@ -86,18 +86,18 @@ footer a{color:var(--body)}
       </div>
     </figure>
     <figure>
-      <figcaption><span>Loss</span><span id="cap-loss">—</span></figcaption>
+      <figcaption><span>Loss</span><span id="cap-loss"></span></figcaption>
       <canvas id="loss" height="196"></canvas>
-      <figcaption style="margin-top:16px"><span>First layer weights</span><span id="cap-w">—</span></figcaption>
+      <figcaption style="margin-top:16px"><span>First layer weights</span><span id="cap-w"></span></figcaption>
       <canvas id="weights" height="150"></canvas>
     </figure>
   </div>
 
   <div class="stats">
     <div class="st"><div class="k">Epoch</div><div class="v" id="s-ep">0</div></div>
-    <div class="st"><div class="k">Loss</div><div class="v" id="s-loss">—</div></div>
-    <div class="st"><div class="k">Accuracy</div><div class="v" id="s-acc">—</div></div>
-    <div class="st"><div class="k">Parameters</div><div class="v" id="s-par">—</div></div>
+    <div class="st"><div class="k">Loss</div><div class="v" id="s-loss"></div></div>
+    <div class="st"><div class="k">Accuracy</div><div class="v" id="s-acc"></div></div>
+    <div class="st"><div class="k">Parameters</div><div class="v" id="s-par"></div></div>
   </div>
 
   <div class="panel">
@@ -132,7 +132,7 @@ footer a{color:var(--body)}
     <p>The boundary is drawn by running the network over a grid of points and shading each one by its output, so you are seeing the function the network currently represents rather than an animation of it. Raise the noise until the classes overlap and you can watch it memorise instead of generalise, which is what regularisation is there to punish.</p>
   </div>
 </div>
-<footer>Built by <a href="https://bxzex.com">bxzex</a>. No libraries. <a href="https://github.com/bxzex/backprop">Source on GitHub</a>.</footer>
+<footer>© 2026 <a href="https://bxzex.com">bxzex</a>. No libraries. <a href="https://github.com/bxzex/backprop">Source on GitHub</a>.</footer>
 
 <script>
 const $ = id => document.getElementById(id);
@@ -377,7 +377,7 @@ $("step").onclick = () => {
   let r; for(let i=0;i<50;i++){ r = trainStep(net, data, lr, lambda, 0.9); epoch++; }
   history.push(r.loss);
   $("s-ep").textContent = epoch.toLocaleString();
-  $("s-loss").textContent = r.loss.toFixed(4);
+  $("s-loss").textContent = r.loss.toFixed(4); $("cap-ep").textContent = "epoch "+epoch.toLocaleString(); $("cap-loss").textContent = "cross entropy "+r.loss.toFixed(4);
   $("s-acc").textContent = (r.acc*100).toFixed(1)+"%";
 };
 $("reinit").onclick = rebuildNet;
